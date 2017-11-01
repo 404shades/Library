@@ -1,0 +1,25 @@
+.carousel {
+    height: 500px;
+    margin-bottom: 60px;
+}
+.carousel .item{
+    height: 500px;
+}
+.navbar-wrapper{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 20;
+}
+.cover{
+    position: absolute;
+    z-index: 40;
+    top: 50px;
+    left:0;
+    right:0;
+    background-color: black;
+    height: 450px;
+    opacity: 0.6;
+
+}
