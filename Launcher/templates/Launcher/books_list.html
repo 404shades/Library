@@ -1,0 +1,19 @@
+{% extends 'Launcher/base.html' %}
+{% block head_title %}Books{% endblock %}
+{% block content %}
+<h1>Only Books</h1>
+        <div class="container">
+        <div class="row">
+            <div class="col-lg-10">
+           <div class="card" style="width:20rem;">
+            <ul class="list-group list-group-flush">
+                {% for items in object_list %}
+                    <li class="list-group-item"><a href="{{ items.slug }}">{{ items }}</a></li>
+                {% endfor %}
+            </ul>
+           </div></div>
+            <div class="col-lg-2"><a href="create" class="btn btn-primary">Add Book</a> </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

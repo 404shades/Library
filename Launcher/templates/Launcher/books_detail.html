@@ -1,0 +1,8 @@
+{% extends 'Launcher/base.html' %}
+{% block head_title %}{{ object.Book_Title }}{% endblock %}
+{% block content %}
+    <div class="container">
+        <h1>{{ object.Book_Title }}</h1><hr>
+        <h2>Updated Since {{ object.LendingDate|timesince  }} ago</h2>
+    </div>
+{% endblock %}
