@@ -1,0 +1,11 @@
+{% extends 'Launcher/base.html' %}
+{% load crispy_forms_tags %}
+{% block head_title %}Return the book{% endblock %}
+{% block content %}
+    <h1>Return the book for {{ bookinst.borrower }}</h1>
+    <form method="post">
+    {% csrf_token %}
+    {{ forming|crispy }}
+    <input type="submit" class="btn-success" value="Return this book">
+    </form>
+{% endblock %}

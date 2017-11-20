@@ -1,0 +1,15 @@
+{% extends "Launcher/base.html" %}
+{% load crispy_forms_tags %}
+{% block head_title %}Renew Book{% endblock %}
+{% block content %}
+    <div class="container">
+    <h1>{{ bookinst.book.Book_Title }}</h1>
+    <h2><small>Borrower: {{ bookinst.borrower }}</small></h2>
+    <p{% if bookinst.is_overdue %} class="text-danger"{% endif %}>Due Date: {{ bookinst.due_back }}</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" value="Renew to {{ bookinst.borrower }}" class="btn btn-success">
+    </form>
+    </div>
+{% endblock %}

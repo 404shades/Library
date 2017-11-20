@@ -27,18 +27,24 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'accessrohan0@gmail.com'
+EMAIL_HOST_PASSWORD = '9034221097rM'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 # Application definition
 
 INSTALLED_APPS = [
     'Launcher.apps.LauncherConfig',
     'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessi'
-    'ons',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'registration',
+    'django.contrib.auth',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -126,3 +132,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+SITE_ID = 1

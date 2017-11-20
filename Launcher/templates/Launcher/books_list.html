@@ -12,7 +12,9 @@
                 {% endfor %}
             </ul>
            </div></div>
+            {% if request.user.is_staff %}
             <div class="col-lg-2"><a href="create" class="btn btn-primary">Add Book</a> </div>
+            {% endif %}
             </div>
         </div>
     </div>

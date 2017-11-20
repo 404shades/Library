@@ -1,0 +1,34 @@
+{% extends 'Launcher/base.html' %}
+{% block head_title %}All Lent Books{% endblock %}
+{% block content %}
+    <div class="container">
+    {% if bookinstance_list %}
+        <h1>All Lent Books</h1>
+        <ul>
+        {% for borrowed in bookinstance_list %}
+        <li class="{% if borrowed.is_overdue %}text-warning{% endif %}">
+        <div class="row">
+            <div class="col-lg-6">
+                <a href="/library/books/{{ borrowed.book.slug }}">{{ borrowed.book.title }}</a>
+                <p><small><strong>Borrowed By {{ borrowed.borrower }} and failed to return before {{ borrowed.due_back }}</strong></small></p>
+            </div>
+            <div class="col-lg-3">
+                {% if user.is_staff and perms.Launcher.can_mark_returned %}
+                <a href="{% url 'return' borrowed.id %}" class="btn btn-primary">Return the book</a>
+                {% endif %}
+            </div>
+            <div class="col-lg-3">
+                {% if user.is_staff and perms.Launcher.can_mark_returned %}
+                <a href="{% url 'renew' borrowed.id %}" class="btn btn-success">Renew the book</a>
+                {% endif %}
+            </div>
+        </div>
+        </li>
+        {% endfor %}
+        </ul>
+        {% else %}
+        <H1>There are no books on loan</H1>
+    {% endif %}
+    </ul>
+    </div>
+{% endblock %}

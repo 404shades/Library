@@ -2,7 +2,26 @@
 {% block head_title %}{{ object.Book_Title }}{% endblock %}
 {% block content %}
     <div class="container">
-        <h1>{{ object.Book_Title }}</h1><hr>
-        <h2>Updated Since {{ object.LendingDate|timesince  }} ago</h2>
-    </div>
+        <h1>{{ books.Book_Title }}</h1><hr>
+        <h2>Updated Since {{ books.LendingDate|timesince  }} ago</h2>
+        <h3>{{ books.display_subject }}</h3>
+        <div style="margin-left: 20px;margin-top: 20px">
+            <h4>Copies</h4>
+        <div class="row">
+        <div class="col-lg-9">
+            {% for copies in books.bookinstance_set.all %}
+            <hr>
+            <p class="{% if copies.status == 'a' %}text-success{% elif copies.status == 'm' %}text-danger{% else %}text-warning{% endif %}">{{ copies.get_status_display }}</p>
+                {% if copies.status != 'a' %}<p><strong>Due to be Returned:</strong>{{ copies.due_back }}</p>{% endif %}
+                <p><strong>Imprint:</strong>{{ copies.imprint }}</p>
+                <p class="text-muted"><strong>Id:</strong>{{ copies.id }}</p>
+                </div>
+                <div class="col-lg-3">
+                {% if copies.status == 'a' %}
+                    <a href="#" class="btn btn-success">Reserve this Book</a>
+                {% endif %}
+                </div>
+                </div>
+            {% endfor %}
+        </div></div>
 {% endblock %}

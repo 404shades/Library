@@ -26,9 +26,16 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="/">Home</a> </li>
                     <li><a href="#">About Us</a> </li>
-                    <li><a href="#">Sign In</a> </li>
-                    <li><a href="#">Sign Out</a></li>
+                    {% if not request.user.is_authenticated %}
+                    <li><a href="/accounts/login/">Sign In</a> </li>
+                    {% endif %}
+                {% if  request.user.is_authenticated%}
+                    <li><a href="/accounts/logout">Sign Out</a></li>
+                {% endif %}
                     <li><a href="/library/">Go To Library</a></li>
+                {% if request.user.is_authenticated %}
+                    <li><a href="#">Welcome {{ request.user.get_username }}</a>
+                {% endif %}
                 </ul>
             </div>
         </div>

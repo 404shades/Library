@@ -1,10 +1,15 @@
 {% extends 'Launcher/base.html' %}
+{% load crispy_forms_tags %}
 {% block head_title %}Add New Book{% endblock %}
 {% block content %}
     <div class="container">
+    {% if request.user.is_staff %}
         <form method="post">{% csrf_token %}
-            {{ form.as_p }}
+            {{ form|crispy}}
         <button type="submit" class="btn-primary">Add Book</button>
         </form>
     </div>
+        {% else %}
+        <H1>You Are Not A Valid Librarian Assistant</H1>
+    {% endif %}
 {% endblock %}

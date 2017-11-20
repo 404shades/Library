@@ -1,6 +1,6 @@
 from django import forms
-from .models import Books
-
+from .models import Books,BookInstance
+import datetime
 class BookCreateForm(forms.ModelForm):
     class Meta:
         model = Books
@@ -8,6 +8,7 @@ class BookCreateForm(forms.ModelForm):
             'Book_Title',
             'ISBN',
             'page_amount',
+            'subj_code'
         ]
     def clean_Book_Title(self):
         title = self.cleaned_data.get("Book_Title").capitalize()
@@ -16,3 +17,31 @@ class BookCreateForm(forms.ModelForm):
             if title==findOut[i].getBookTitle().capitalize():
                 raise forms.ValidationError("Book Title Already In Use")
         return title
+
+class BookRenewForm(forms.ModelForm):
+    class Meta:
+        model = BookInstance
+        fields = [
+            'due_back',
+        ]
+
+    def clean_renewal_date(self):
+        data = self.cleaned_data.get('due_back')
+        if data < datetime.date.today():
+            raise forms.ValidationError('Invalid Date Renewal in Past')
+        if data > datetime.date.today() + datetime.timedelta(weeks=4):
+            raise forms.ValidationError("Invalid Date Renewal more than 4 weeks")
+
+        return data
+
+
+class BookReturnForm(forms.ModelForm):
+    class Meta:
+        model = BookInstance
+        fields = [
+            'borrower'
+        ]
+
+    def clean_borrower(self):
+        data = self.cleaned_data.get('borrower')
+        return data

@@ -13,14 +13,19 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url,include
 from django.contrib import admin
-from Launcher.views import Launching,Library,BooksListView,BooksDetailView,BooksCreateView
+from Launcher.views import Launching,Library,BooksListView,BooksDetailView,BooksCreateView,LoanedBooksByUser,LoanedBooksByAllUsers,renew_book_librarian,return_book_librarian
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', Launching.as_view()),
+    url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^library/$',Library.as_view()),
     url(r'^library/books/$',BooksListView.as_view()),
     url(r'^library/books/create/$',BooksCreateView.as_view()),
+    url(r'^library/books/mybooks/$',LoanedBooksByUser.as_view()),
+    url(r'^library/books/allbooks/$',LoanedBooksByAllUsers.as_view(),name='all-booked'),
+    url(r'^library/book/(?P<pk>[-\w]+)/renew/$',renew_book_librarian,name='renew'),
+    url(r'^library/book/(?P<pk>[-\w]+)/return/$',return_book_librarian,name='return'),
     url(r'^library/books/(?P<slug>[\w-]+)/$',BooksDetailView.as_view()),
 ]
