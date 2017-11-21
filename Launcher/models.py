@@ -37,7 +37,6 @@ class Books(models.Model):
 
 
 def rl_pre_save_receiver(sender,instance,**kwargs):
-    print('Saving....')
     instance.Book_Title = instance.Book_Title.capitalize()
     print(instance.timestamp)
     if not instance.slug:
