@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import Books,Subject,BookInstance
+from .models import Books,Subject,BookInstance,Profile
 # Register your models here.
 admin.site.register(Books)
 admin.site.register(Subject)
-
+admin.site.register(Profile)
 
 class BookInstanceInline(admin.TabularInline):
     model = BookInstance

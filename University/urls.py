@@ -15,13 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
-from registration.forms import RegistrationFormUniqueEmail
-from registration.backends.default.views import RegistrationView
-from Launcher.views import Launching,Library,BooksListView,BooksDetailView,BooksCreateView,LoanedBooksByUser,LoanedBooksByAllUsers,renew_book_librarian,return_book_librarian
+from Launcher.regbackend import MyRegistrationView
+from Launcher.views import Launching,Library,BooksListView,BooksDetailView,BooksCreateView,LoanedBooksByUser,LoanedBooksByAllUsers,renew_book_librarian,return_book_librarian,ProfileView
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', Launching.as_view()),
-    url(r'^accounts/register/$',RegistrationView.as_view(form_class = RegistrationFormUniqueEmail),name='registration_register'),
+    url(r'^accounts/register/$',MyRegistrationView.as_view(),name='registration_register'),
+    url(r'^accounts/profile/$',ProfileView.as_view()),
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^library/$',Library.as_view()),
     url(r'^library/books/$',BooksListView.as_view()),

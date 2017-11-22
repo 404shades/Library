@@ -5,9 +5,8 @@
 {% block title %}{% trans "Log in" %}{% endblock %}
 
 {% block content %}
-    <img src="{% static 'Launcher/laptop-frame.png' %}">
-    <div class="container h-100">
-    <div class="row h-100 justify-content-center align-items-center">
+    <div class="container h-100 w3-section">
+    <div class="row justify-content-center align-items-center">
     <div class="w3-round-large w3-card-4 w3-padding">
 <form method="post" action="">
     {% csrf_token %}

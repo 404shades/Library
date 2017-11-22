@@ -60,6 +60,11 @@ class BookInstance(models.Model):
             return True
         return False
 
+    @property
+    def calculate_fine(self):
+        delta = date.today() - self.due_back
+        return delta.days
+
     LOAN_STATUS = (
         ('m', 'On Maintainence'),
         ('o', 'On Loan'),
@@ -75,3 +80,12 @@ class BookInstance(models.Model):
 
     def __str__(self):
         return '%s (%s)' %(self.id,self.book.title)
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, primary_key=True,related_name='foobar')
+    roll_number = models.IntegerField()
+
+    def __str__(self):
+        return self.user.get_username()
+

@@ -84,3 +84,21 @@ def return_book_librarian(request,pk):
 
     return render(request,'Launcher/returnBookLibrarian.html',{'form':forming,'bookinst':book_renew})
 
+
+class ProfileView(LoginRequiredMixin,ListView):
+    template_name = 'Launcher/profiles.html'
+    context_object_name = 'rohan'
+
+    def get_queryset(self):
+        return BookInstance.objects.filter(borrower=self.request.user).order_by('due_back')
+
+    def get_context_data(self, **kwargs):
+        count = 0
+        query  = BookInstance.objects.filter(borrower=self.request.user)
+        if query:
+            for total_fine in query:
+                if total_fine.is_overdue:
+                    count = count + total_fine.calculate_fine
+        context = super(ProfileView,self).get_context_data(**kwargs)
+        context['total'] = count
+        return context

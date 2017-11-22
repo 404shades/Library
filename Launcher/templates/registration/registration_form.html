@@ -5,7 +5,7 @@
 {% block title %}{% trans "Register for an account" %}{% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="w3-card-4 w3-section w3-padding-16 w3-round container">
 <form method="post" action="">
     {% csrf_token %}
     {{ form|crispy }}

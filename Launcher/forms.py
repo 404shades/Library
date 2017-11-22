@@ -1,6 +1,9 @@
 from django import forms
-from .models import Books,BookInstance
+from .models import Books,BookInstance,Profile
 import datetime
+from registration.forms import RegistrationFormUniqueEmail
+
+
 class BookCreateForm(forms.ModelForm):
     class Meta:
         model = Books
@@ -45,3 +48,13 @@ class BookReturnForm(forms.ModelForm):
     def clean_borrower(self):
         data = self.cleaned_data.get('borrower')
         return data
+
+
+class ProfileForm(RegistrationFormUniqueEmail):
+    roll_number = forms.IntegerField()
+
+    def clean_roll_number(self):
+        roll = self.cleaned_data.get('roll_number')
+        if roll == 1:
+            raise forms.ValidationError('Invalid Roll Number')
+        return roll

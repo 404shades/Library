@@ -25,7 +25,7 @@ SECRET_KEY = '#rg46+7eq6na%5urlv1#yy!tj0u3h6a+kp%5^da2(6j3de&cu='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.43.222']
+ALLOWED_HOSTS = []
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'accessrohan0@gmail.com'
@@ -134,5 +134,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
+REGISTRATION_FORM = 'Launcher.forms.ProfileForm'
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 SITE_ID = 1

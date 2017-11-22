@@ -1,0 +1,66 @@
+{% extends 'Launcher/base.html' %}
+{% load static %}
+{% block head_title %}{{ request.user.get_username }}{% endblock %}
+{% block content %}
+    <div class="w3-content w3-margin-top" style="max-width: 1400px;">
+    <div class="w3-row-padding">
+        <div class="w3-third">
+            <div class="w3-white w3-text-grey w3-card-4">
+                <div class="w3-display-container">
+                    <img src="{% static 'Launcher/canon1.jpg' %}" style="width:100%">
+                    <div class="w3-display-bottomleft w3-container w3-text-white">
+                        <h2>{{ request.user.get_username }}</h2>
+                    </div>
+                </div>
+                <div class="w3-container w3-margin-top">
+                    <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i> SUPVA</p>
+                    <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>{{ request.user.email }}</p>
+                    <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>{{ request.user.foobar.roll_number }}</p>
+                    <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>1224435534</p>
+                    <hr>
+                </div>
+            </div>
+        </div>
+        <div class="w3-twothird">
+            <div class="w3-container w3-card w3-white w3-margin-bottom">
+                <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-book fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>My Books</h2>
+                {% if rohan %}
+                {% for booking in rohan %}
+                <div class="w3-container">
+                    <h5 class="w3-opacity"><b>{{ booking.book.title }}</b></h5>
+          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{ booking.due_back }} - <span {% if booking.status == 'o' %}class="w3-tag w3-red w3-round"{% endif %}{% if booking.status == 'r' %}class="w3-tag w3-green w3-round"{% endif %}>{{ booking.get_status_display }}</span></h6>
+          <hr>
+                </div>
+                {% endfor %}
+            {% endif %}
+            </div>
+
+            <div class="w3-container w3-card w3-white">
+                <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-money fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>My Fine - <i class="fa fa-inr w3-text-blue w3-xlarge"></i>  {{ total }}</h2>
+                {% if rohan %}
+                {% for fine in rohan %}
+                    {% if fine.is_overdue %}
+                        <div class="w3-row w3-container">
+        <div class="w3-col s6">
+          <h5 class="w3-opacity"><b>{{ fine.book.title }}</b></h5>
+          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{ fine.due_back }}</h6>
+        </div>
+            <div class="w3-col s6">
+                <p class="w3-text-red w3-xlarge"><i class="fa fa-inr"></i> {{ fine.calculate_fine }}</p>
+            </div>
+                        </div>
+                        <hr>
+                    {% endif %}
+                {% endfor %}
+                    {% else %}
+                    <p class="w3-text-green w3-xlarge"><i class="fa fa-inr"></i> 0</p>
+            {% endif %}
+
+
+      </div>
+
+
+        </div>
+    </div>
+    </div>
+{% endblock %}

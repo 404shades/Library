@@ -39,7 +39,6 @@
         background-image: url("{% static 'Launcher/Books.jpg' %}");
         min-height: 400px;
     }
-    img {margin-bottom: -8px;}
     .mySlides {display: none;}
     .w3-wide {letter-spacing: 10px;}
     .w3-hover-opacity {cursor: pointer;}
@@ -51,9 +50,8 @@
     {% block styling %}{% endblock %}
 </style>
 </head>
-<body {% if request.path == '/library/' %}class="w3-content w3-black" style="max-width:1500px;"{% endif %}>
-
-<div class="w3-top">
+<body {% if request.path == '/library/' %}class="w3-content w3-black" style="max-width:1500px;"{% endif %}{% if request.path == '/accounts/profile' %}class="w3-light-grey"{% endif %}>
+<div class="navbar-fixed">
     <div class="w3-bar w3-white w3-card" id="myNavbar">
         <a href="#" class="w3-bar-item w3-button w3-wide">SUPVA</a>
 
@@ -67,7 +65,7 @@
                 <a href="/accounts/logout" class="w3-bar-item w3-button"><i class="fa fa-user"></i> Sign Out</a>
         {% endif %}
           {% if request.user.is_authenticated %}
-              <a href="#" class="w3-bar-item w3-button"><i class="fa fa-laptop"></i> Welcome {{ request.user.get_username }}</a>
+              <a href="/accounts/profile" class="w3-bar-item w3-button"><i class="fa fa-laptop"></i> Welcome {{ request.user.get_username }}</a>
         {% endif %}
         </div>
 
@@ -90,9 +88,6 @@
               <a href="#" onclick="w3_close()" class="w3-bar-item"><i class="fa fa-laptop"></i> Welcome {{ request.user.get_username }}</a>
         {% endif %}
 </nav>
-
-
-
 
 
 
