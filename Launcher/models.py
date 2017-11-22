@@ -83,8 +83,8 @@ class BookInstance(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, primary_key=True,related_name='foobar')
     roll_number = models.IntegerField()
+    user = models.OneToOneField(User, primary_key=True,related_name='foobar')
 
     def __str__(self):
         return self.user.get_username()
