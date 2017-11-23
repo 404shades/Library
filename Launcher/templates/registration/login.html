@@ -5,9 +5,10 @@
 {% block title %}{% trans "Log in" %}{% endblock %}
 
 {% block content %}
-    <div class="container h-100 w3-section">
-    <div class="row justify-content-center align-items-center">
-    <div class="w3-round-large w3-card-4 w3-padding">
+    <header class="login w3-display-container">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="w3-opacity-min w3-hover-opacity-off w3-card-4 w3-round-large w3-black w3-padding w3-margin" style="position: relative;display: block;top: 50%;left: 50%;">
 <form method="post" action="">
     {% csrf_token %}
     {{ form|crispy }}
@@ -17,9 +18,8 @@
 
 <p>{% trans "Forgot your password?" %} <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>.</p>
 <p>{% trans "Not a member?" %} <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>.</p>
-    </div>
-    </div>
-    </div>
+            </div></div></div>
+    </header>
 {% endblock %}
 
 
