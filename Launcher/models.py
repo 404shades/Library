@@ -33,6 +33,9 @@ class Books(models.Model):
     def getBookTitle(self):
         return self.Book_Title
 
+    def get_subject(self):
+        return self.subj_code
+
 
 def rl_pre_save_receiver(sender,instance,**kwargs):
     instance.Book_Title = instance.Book_Title.capitalize()

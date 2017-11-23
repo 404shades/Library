@@ -4,7 +4,7 @@
     <div class="container">
         <h1>{{ books.Book_Title }}</h1><hr>
         <h2>Updated Since {{ books.LendingDate|timesince  }} ago</h2>
-        <h3>{{ books.display_subject }}</h3>
+        <h3>{{ books.get_subject }}</h3>
         <div style="margin-left: 20px;margin-top: 20px">
             <h4>Copies</h4>
         <div class="row">
