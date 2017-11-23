@@ -118,7 +118,7 @@ def import_sheet(request):
         if form.is_valid():
             request.FILES['file'].save_to_database(
                 model=Books,
-                mapdict=['Author_Name', 'Book_Title', 'Publisher_Name', 'Year', 'page_amount', 'ISBN'])
+                mapdict=['Author_Name', 'Book_Title', 'Publisher_Name'])
             return HttpResponse("OK")
         else:
             return HttpResponseBadRequest()
