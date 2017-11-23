@@ -3,11 +3,15 @@ from .models import Books,BookInstance
 from .forms import BookCreateForm,BookRenewForm,BookReturnForm
 from django.contrib.auth.mixins import LoginRequiredMixin,PermissionRequiredMixin
 from django.contrib.auth.decorators import permission_required,login_required
-from django.shortcuts import get_object_or_404,render
-from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404,render,redirect
+from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpResponse
 from django.core.urlresolvers import reverse
+from django.forms import forms
 import datetime
+import django_excel as excel
 
+class UploadFileForm(forms.Form):
+    file = forms.FileField()
 
 class Launching(TemplateView):
     template_name = 'Launcher/index.html'
@@ -19,10 +23,12 @@ class Library(TemplateView):
 
 class BooksListView(ListView):
     queryset = Books.objects.all()
+    paginate_by = 8
 
 
 class BooksDetailView(DetailView):
     model = Books
+
 
 
 class BooksCreateView(LoginRequiredMixin,CreateView):
@@ -102,3 +108,27 @@ class ProfileView(LoginRequiredMixin,ListView):
         context = super(ProfileView,self).get_context_data(**kwargs)
         context['total'] = count
         return context
+
+
+
+def import_sheet(request):
+    if request.method == "POST":
+        form = UploadFileForm(request.POST,
+                              request.FILES)
+        if form.is_valid():
+            request.FILES['file'].save_to_database(
+                model=Books,
+                mapdict=['Author_Name', 'Book_Title', 'Publisher_Name', 'Year', 'page_amount'])
+            return HttpResponse("OK")
+        else:
+            return HttpResponseBadRequest()
+    else:
+        form = UploadFileForm()
+    return render(
+        request,
+        'Launcher/upload_form.html',
+        {'form': form})
+
+def handson_table(request):
+    return excel.make_response_from_tables(
+        [Books, BookInstance], 'Launcher/handsontable.html')

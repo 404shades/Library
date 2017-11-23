@@ -16,11 +16,13 @@ Including another URLconf
 from django.conf.urls import url,include
 from django.contrib import admin
 from Launcher.regbackend import MyRegistrationView
-from Launcher.views import Launching,Library,BooksListView,BooksDetailView,BooksCreateView,LoanedBooksByUser,LoanedBooksByAllUsers,renew_book_librarian,return_book_librarian,ProfileView
+from Launcher.views import Launching,Library,BooksListView,BooksDetailView,BooksCreateView,LoanedBooksByUser,LoanedBooksByAllUsers,renew_book_librarian,return_book_librarian,ProfileView,handson_table,import_sheet
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', Launching.as_view()),
+    url(r'^import/$', import_sheet, name="import"),
     url(r'^accounts/register/$',MyRegistrationView.as_view(),name='registration_register'),
+    url(r'^handson_view/', handson_table, name="handson_view"),
     url(r'^accounts/profile/$',ProfileView.as_view()),
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^library/$',Library.as_view()),

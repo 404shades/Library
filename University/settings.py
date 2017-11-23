@@ -20,12 +20,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '#rg46+7eq6na%5urlv1#yy!tj0u3h6a+kp%5^da2(6j3de&cu='
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ['DJANGO_DEBUG']
 
-ALLOWED_HOSTS = ['rohanweb.herokuapp.com']
+ALLOWED_HOSTS = ['rohanweb.herokuapp.com','127.0.0.1']
+
+FILE_UPLOAD_HANDLERS = ("django_excel.ExcelMemoryFileUploadHandler",
+                        "django_excel.TemporaryExcelFileUploadHandler")
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'accessrohan0@gmail.com'
