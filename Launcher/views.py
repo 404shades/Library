@@ -111,24 +111,24 @@ class ProfileView(LoginRequiredMixin,ListView):
 
 
 
-def import_sheet(request):
-    if request.method == "POST":
-        form = UploadFileForm(request.POST,
-                              request.FILES)
-        if form.is_valid():
-            request.FILES['file'].save_to_database(
-                model=Books,
-                mapdict=['Author_Name', 'Book_Title', 'Publisher_Name'])
-            return HttpResponse("OK")
-        else:
-            return HttpResponseBadRequest()
-    else:
-        form = UploadFileForm()
-    return render(
-        request,
-        'Launcher/upload_form.html',
-        {'form': form})
-
-def handson_table(request):
-    return excel.make_response_from_tables(
-        [Books, BookInstance], 'Launcher/handsontable.html')
+# def import_sheet(request):
+#     if request.method == "POST":
+#         form = UploadFileForm(request.POST,
+#                               request.FILES)
+#         if form.is_valid():
+#             request.FILES['file'].save_to_database(
+#                 model=Books,
+#                 mapdict=['Author_Name', 'Book_Title', 'Publisher_Name'])
+#             return HttpResponse("OK")
+#         else:
+#             return HttpResponseBadRequest()
+#     else:
+#         form = UploadFileForm()
+#     return render(
+#         request,
+#         'Launcher/upload_form.html',
+#         {'form': form})
+#
+# def handson_table(request):
+#     return excel.make_response_from_tables(
+#         [Books, BookInstance], 'Launcher/handsontable.html')
